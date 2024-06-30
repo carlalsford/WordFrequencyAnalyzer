@@ -9,7 +9,7 @@ public class WordFrequencyAnalyzerTests
     #region Test Setup & Helpers
 
     private WordFrequencyAnalyzer? analyzer;
-    private string ValidTestString = "The sun shines over the lake";
+    private string ValidTestString = "The Sun Shines Over The Lake"; // Mixed case - tests set to lower/upper as required
     private string ShortValidTestString = "lake and lake";
     private string InvalidTestString = "The sun shines over the lake."; // invalid due to .
 
@@ -78,6 +78,32 @@ public class WordFrequencyAnalyzerTests
 
         // Act
         var result = analyzer!.CalculateHighestFrequency(ValidTestString);
+
+        // Assert
+        result.Should().Be(total, $"because it exists {total} times in the {ValidTestString}");
+    }
+
+    [TestMethod]
+    public void CalculateHighestFrequency_UpperValidEntry_ReturnsCorrectValue()
+    {
+        // Arrange
+        var total = 2;
+
+        // Act
+        var result = analyzer!.CalculateHighestFrequency(ValidTestString.ToUpperInvariant());
+
+        // Assert
+        result.Should().Be(total, $"because it exists {total} times in the {ValidTestString}");
+    }
+
+    [TestMethod]
+    public void CalculateHighestFrequency_LowerValidEntry_ReturnsCorrectValue()
+    {
+        // Arrange
+        var total = 2;
+
+        // Act
+        var result = analyzer!.CalculateHighestFrequency(ValidTestString.ToLowerInvariant().ToUpperInvariant());
 
         // Assert
         result.Should().Be(total, $"because it exists {total} times in the {ValidTestString}");
@@ -171,6 +197,32 @@ public class WordFrequencyAnalyzerTests
     }
 
     [TestMethod]
+    public void CalculateFrequencyForWord_UpperValidTextWithoutWord_Returns0()
+    {
+        // Arrange
+        var testWord = "them";
+
+        // Act
+        var result = analyzer!.CalculateFrequencyForWord(ValidTestString.ToUpperInvariant(), testWord);
+
+        // Assert
+        result.Should().Be(0, $"because it doesn't exist in the {ValidTestString}");
+    }
+
+    [TestMethod]
+    public void CalculateFrequencyForWord_LowerValidTextWithoutWord_Returns0()
+    {
+        // Arrange
+        var testWord = "them";
+
+        // Act
+        var result = analyzer!.CalculateFrequencyForWord(ValidTestString.ToLowerInvariant(), testWord);
+
+        // Assert
+        result.Should().Be(0, $"because it doesn't exist in the {ValidTestString}");
+    }
+
+    [TestMethod]
     public void CalculateFrequencyForWord_ValidTextWithWord_ReturnsCorrectValue()
     {
         // Arrange
@@ -179,6 +231,48 @@ public class WordFrequencyAnalyzerTests
 
         // Act
         var result = analyzer!.CalculateFrequencyForWord(ValidTestString, testWord);
+
+        // Assert
+        result.Should().Be(total);
+    }
+
+    [TestMethod]
+    public void CalculateFrequencyForWord_UpperValidTextWithWord_ReturnsCorrectValue()
+    {
+        // Arrange
+        var testWord = "the";
+        var total = 2;
+
+        // Act
+        var result = analyzer!.CalculateFrequencyForWord(ValidTestString.ToUpperInvariant(), testWord);
+
+        // Assert
+        result.Should().Be(total);
+    }
+
+    [TestMethod]
+    public void CalculateFrequencyForWord_LowerValidTextWithWord_ReturnsCorrectValue()
+    {
+        // Arrange
+        var testWord = "the";
+        var total = 2;
+
+        // Act
+        var result = analyzer!.CalculateFrequencyForWord(ValidTestString.ToLowerInvariant(), testWord);
+
+        // Assert
+        result.Should().Be(total);
+    }
+
+    [TestMethod]
+    public void CalculateFrequencyForWord_LowerValidTextWithUpperWord_ReturnsCorrectValue()
+    {
+        // Arrange
+        var testWord = "the";
+        var total = 2;
+
+        // Act
+        var result = analyzer!.CalculateFrequencyForWord(ValidTestString.ToLowerInvariant(), testWord.ToUpperInvariant());
 
         // Assert
         result.Should().Be(total);
@@ -253,6 +347,42 @@ public class WordFrequencyAnalyzerTests
 
         // Act
         var result = analyzer!.CalculateMostFrequentWords(ValidTestString, total);
+
+        // Assert
+        result.Should().BeEquivalentTo(expected);
+    }
+
+    [TestMethod]
+    public void CalculateMostFrequentWords_UpperValidTextWithMoreWordsThanNumber_ReturnsNumberOfEntries()
+    {
+        // Arrange
+        var total = 2;
+        var expected = new List<IWordFrequency>
+        {
+            GenerateWordFrequency("the", 2),
+            GenerateWordFrequency("lake", 1)
+        };
+
+        // Act
+        var result = analyzer!.CalculateMostFrequentWords(ValidTestString.ToUpperInvariant(), total);
+
+        // Assert
+        result.Should().BeEquivalentTo(expected);
+    }
+
+    [TestMethod]
+    public void CalculateMostFrequentWords_LowerValidTextWithMoreWordsThanNumber_ReturnsNumberOfEntries()
+    {
+        // Arrange
+        var total = 2;
+        var expected = new List<IWordFrequency>
+        {
+            GenerateWordFrequency("the", 2),
+            GenerateWordFrequency("lake", 1)
+        };
+
+        // Act
+        var result = analyzer!.CalculateMostFrequentWords(ValidTestString.ToLowerInvariant(), total);
 
         // Assert
         result.Should().BeEquivalentTo(expected);
