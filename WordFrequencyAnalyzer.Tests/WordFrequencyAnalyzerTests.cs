@@ -249,7 +249,7 @@ public class WordFrequencyAnalyzerTests
         var expected = new List<IWordFrequency>
         {
             GenerateWordFrequency("the", 2),
-            GenerateWordFrequency("and", 1)
+            GenerateWordFrequency("lake", 1)
         };
 
         // Act
