@@ -5,13 +5,14 @@ namespace WordFrequencyAnalyzer;
 
 public class WordFrequencyAnalyzer : IWordFrequencyAnalyzer
 {
-    private string ValidationRule = @"^[a-z ]+$";
+    private string TextValidationRule = @"^[a-z ]+$"; // text can be a-z with spaces
+    private string WordValidationRule = @"^[a-z]+$"; // words can only be a-z
 
     /// <inheritdoc />
     public int CalculateHighestFrequency(string text)
     {
         Guard.Against.NullOrWhiteSpace(text);
-        Guard.Against.InvalidFormat(text.ToLowerInvariant(), nameof(text), ValidationRule);
+        Guard.Against.InvalidFormat(text.ToLowerInvariant(), nameof(text), TextValidationRule);
 
         return GenerateWordFrequencies(text).Values.Max();
     }
@@ -21,8 +22,8 @@ public class WordFrequencyAnalyzer : IWordFrequencyAnalyzer
     {
         Guard.Against.NullOrWhiteSpace(text);
         Guard.Against.NullOrWhiteSpace(word);
-        Guard.Against.InvalidFormat(text.ToLowerInvariant(), nameof(text), ValidationRule);
-        Guard.Against.InvalidFormat(word.ToLowerInvariant(), nameof(word), ValidationRule);
+        Guard.Against.InvalidFormat(text.ToLowerInvariant(), nameof(text), TextValidationRule);
+        Guard.Against.InvalidFormat(word.ToLowerInvariant(), nameof(word), WordValidationRule);
 
         var wordFrequencies = GenerateWordFrequencies(text);
 
@@ -38,36 +39,36 @@ public class WordFrequencyAnalyzer : IWordFrequencyAnalyzer
     public IList<IWordFrequency> CalculateMostFrequentWords(string text, int number)
     {
         Guard.Against.NullOrWhiteSpace(text);
-        Guard.Against.InvalidFormat(text.ToLowerInvariant(), nameof(text), ValidationRule);
+        Guard.Against.InvalidFormat(text.ToLowerInvariant(), nameof(text), TextValidationRule);
         Guard.Against.NegativeOrZero(number);
 
         return GenerateWordFrequencies(text)
-                                .OrderByDescending(wf => wf.Value)
-                                .ThenBy(wf => wf.Key)
-                                .Take(number)
-                                .Select(wf => new WordFrequency { Word = wf.Key, Frequency = wf.Value})
-                                .ToList<IWordFrequency>();
+                .OrderByDescending(wf => wf.Value)
+                .ThenBy(wf => wf.Key)
+                .Take(number)
+                .Select(wf => new WordFrequency { Word = wf.Key, Frequency = wf.Value})
+                .ToList<IWordFrequency>();
     }
 
     private Dictionary<string, int> GenerateWordFrequencies(string text)
     {
-        var entries = text.Split(' ', StringSplitOptions.RemoveEmptyEntries)
+        var textEntries = text.Split(' ', StringSplitOptions.RemoveEmptyEntries)
                             .Select(entry => entry.ToLower());
 
-        var frequencies = new Dictionary<string, int>();
+        var wordFrequencies = new Dictionary<string, int>();
 
-        foreach (var entry in entries)
+        foreach (var word in textEntries)
         {
-            if (frequencies.TryGetValue(entry, out var value))
+            if (wordFrequencies.TryGetValue(word, out var value))
             {
-                frequencies[entry] = ++value;
+                wordFrequencies[word] = ++value;
             }
             else
             {
-                frequencies[entry] = 1;
+                wordFrequencies[word] = 1;
             }
         }
 
-        return frequencies;
+        return wordFrequencies;
     }
 }

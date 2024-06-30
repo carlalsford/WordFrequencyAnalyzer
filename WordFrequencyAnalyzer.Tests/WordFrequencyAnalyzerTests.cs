@@ -8,11 +8,10 @@ public class WordFrequencyAnalyzerTests
 {
     #region Test Setup & Helpers
 
-    private WordFrequencyAnalyzer analyzer;
+    private WordFrequencyAnalyzer? analyzer;
     private string ValidTestString = "The sun shines over the lake";
     private string ShortValidTestString = "lake and lake";
-    private string EmptyTestString = string.Empty;
-    private string InvalidTestString = "The sun shines over the lake.";
+    private string InvalidTestString = "The sun shines over the lake."; // invalid due to .
 
     [TestInitialize]
     public void Initialize()
@@ -40,7 +39,7 @@ public class WordFrequencyAnalyzerTests
         // Arrange
 
         // Act
-        var result = analyzer.CalculateHighestFrequency(null);
+        var result = analyzer!.CalculateHighestFrequency(null!);
 
         // Assert
 
@@ -53,7 +52,7 @@ public class WordFrequencyAnalyzerTests
         // Arrange
 
         // Act
-        var result = analyzer.CalculateHighestFrequency(EmptyTestString);
+        var result = analyzer!.CalculateHighestFrequency(string.Empty);
 
         // Assert
 
@@ -66,7 +65,7 @@ public class WordFrequencyAnalyzerTests
         // Arrange
 
         // Act
-        var result = analyzer.CalculateHighestFrequency(InvalidTestString);
+        var result = analyzer!.CalculateHighestFrequency(InvalidTestString);
 
         // Assert
     }
@@ -78,7 +77,7 @@ public class WordFrequencyAnalyzerTests
         var total = 2;
 
         // Act
-        var result = analyzer.CalculateHighestFrequency(ValidTestString);
+        var result = analyzer!.CalculateHighestFrequency(ValidTestString);
 
         // Assert
         result.Should().Be(total, $"because it exists {total} times in the {ValidTestString}");
@@ -96,7 +95,7 @@ public class WordFrequencyAnalyzerTests
         var testWord = "the";
 
         // Act
-        var result = analyzer.CalculateFrequencyForWord(null, testWord);
+        var result = analyzer!.CalculateFrequencyForWord(null!, testWord);
 
         // Assert
 
@@ -110,7 +109,7 @@ public class WordFrequencyAnalyzerTests
         var testWord = "the";
 
         // Act
-        var result = analyzer.CalculateFrequencyForWord(EmptyTestString, testWord);
+        var result = analyzer!.CalculateFrequencyForWord(string.Empty, testWord);
 
         // Assert
 
@@ -124,7 +123,7 @@ public class WordFrequencyAnalyzerTests
         var testWord = string.Empty;
 
         // Act
-        var result = analyzer.CalculateFrequencyForWord(EmptyTestString, testWord);
+        var result = analyzer!.CalculateFrequencyForWord(string.Empty, testWord);
 
         // Assert
 
@@ -138,7 +137,7 @@ public class WordFrequencyAnalyzerTests
         var testWord = "the";
 
         // Act
-        var result = analyzer.CalculateFrequencyForWord(InvalidTestString, testWord);
+        var result = analyzer!.CalculateFrequencyForWord(InvalidTestString, testWord);
 
         // Assert
 
@@ -152,7 +151,7 @@ public class WordFrequencyAnalyzerTests
         var testWord = string.Empty;
 
         // Act
-        var result = analyzer.CalculateFrequencyForWord(ValidTestString, testWord);
+        var result = analyzer!.CalculateFrequencyForWord(ValidTestString, testWord);
 
         // Assert
 
@@ -165,7 +164,7 @@ public class WordFrequencyAnalyzerTests
         var testWord = "them";
 
         // Act
-        var result = analyzer.CalculateFrequencyForWord(ValidTestString, testWord);
+        var result = analyzer!.CalculateFrequencyForWord(ValidTestString, testWord);
 
         // Assert
         result.Should().Be(0, $"because it doesn't exist in the {ValidTestString}");
@@ -179,7 +178,7 @@ public class WordFrequencyAnalyzerTests
         var total = 2;
 
         // Act
-        var result = analyzer.CalculateFrequencyForWord(ValidTestString, testWord);
+        var result = analyzer!.CalculateFrequencyForWord(ValidTestString, testWord);
 
         // Assert
         result.Should().Be(total);
@@ -196,7 +195,7 @@ public class WordFrequencyAnalyzerTests
         // Arrange
 
         // Act
-        var result = analyzer.CalculateMostFrequentWords(null, 1);
+        var result = analyzer!.CalculateMostFrequentWords(null!, 1);
 
         // Assert
 
@@ -209,8 +208,8 @@ public class WordFrequencyAnalyzerTests
         // Arrange
 
         // Act
-        var result = analyzer.CalculateMostFrequentWords(EmptyTestString, 1);
-
+        var result = analyzer!.CalculateMostFrequentWords(string.Empty, 1);
+        
         // Assert
 
     }
@@ -222,7 +221,7 @@ public class WordFrequencyAnalyzerTests
         // Arrange
 
         // Act
-        var result = analyzer.CalculateMostFrequentWords(InvalidTestString, 1);
+        var result = analyzer!.CalculateMostFrequentWords(InvalidTestString, 1);
 
         // Assert
 
@@ -235,7 +234,7 @@ public class WordFrequencyAnalyzerTests
         // Arrange
 
         // Act
-        var result = analyzer.CalculateMostFrequentWords(EmptyTestString, 0);
+        var result = analyzer!.CalculateMostFrequentWords(string.Empty, 0);
 
         // Assert
 
@@ -253,7 +252,7 @@ public class WordFrequencyAnalyzerTests
         };
 
         // Act
-        var result = analyzer.CalculateMostFrequentWords(ValidTestString, total);
+        var result = analyzer!.CalculateMostFrequentWords(ValidTestString, total);
 
         // Assert
         result.Should().BeEquivalentTo(expected);
@@ -271,7 +270,7 @@ public class WordFrequencyAnalyzerTests
         };
 
         // Act
-        var result = analyzer.CalculateMostFrequentWords(ShortValidTestString, total);
+        var result = analyzer!.CalculateMostFrequentWords(ShortValidTestString, total);
 
         // Assert
         result.Should().BeEquivalentTo(expected);
@@ -289,7 +288,7 @@ public class WordFrequencyAnalyzerTests
         };
 
         // Act
-        var result = analyzer.CalculateMostFrequentWords(ShortValidTestString, total);
+        var result = analyzer!.CalculateMostFrequentWords(ShortValidTestString, total);
 
         // Assert
         result.Should().BeEquivalentTo(expected);
