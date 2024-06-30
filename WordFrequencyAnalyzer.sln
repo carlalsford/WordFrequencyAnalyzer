@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordFrequencyAnalyzer", "WordFrequencyAnalyzer\WordFrequencyAnalyzer.csproj", "{DEA2BF00-1B2A-43F1-87CC-8EB9C7A76606}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordFrequencyAnalyzer.Tests", "WordFrequencyAnalyzer.Tests\WordFrequencyAnalyzer.Tests.csproj", "{BF413CF5-13EE-40A5-8EB8-026F28AAE116}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{DEA2BF00-1B2A-43F1-87CC-8EB9C7A76606}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEA2BF00-1B2A-43F1-87CC-8EB9C7A76606}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEA2BF00-1B2A-43F1-87CC-8EB9C7A76606}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF413CF5-13EE-40A5-8EB8-026F28AAE116}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF413CF5-13EE-40A5-8EB8-026F28AAE116}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF413CF5-13EE-40A5-8EB8-026F28AAE116}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF413CF5-13EE-40A5-8EB8-026F28AAE116}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

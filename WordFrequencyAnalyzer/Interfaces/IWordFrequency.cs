@@ -1,4 +1,4 @@
-﻿namespace WordFrequencyAnalyzer;
+﻿namespace WordFrequencyAnalyzer.Interfaces;
 
 public interface IWordFrequency
 {
