@@ -12,6 +12,7 @@ public class WordFrequencyAnalyzerTests
     private string ValidTestString = "The sun shines over the lake";
     private string ShortValidTestString = "lake and lake";
     private string EmptyTestString = string.Empty;
+    private string InvalidTestString = "The sun shines over the lake.";
 
     [TestInitialize]
     public void Initialize()
@@ -46,13 +47,26 @@ public class WordFrequencyAnalyzerTests
     }
 
     [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void CalculateHighestFrequency_EmptyEntry_ThrowsArgumentNullException()
+    {
+        // Arrange
+
+        // Act
+        var result = analyzer.CalculateHighestFrequency(EmptyTestString);
+
+        // Assert
+
+    }
+
+    [TestMethod]
     [ExpectedException(typeof(ArgumentException))]
     public void CalculateHighestFrequency_InvalidEntry_ThrowsArgumentException()
     {
         // Arrange
 
         // Act
-        var result = analyzer.CalculateHighestFrequency(EmptyTestString);
+        var result = analyzer.CalculateHighestFrequency(InvalidTestString);
 
         // Assert
     }
@@ -89,6 +103,34 @@ public class WordFrequencyAnalyzerTests
     }
 
     [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void CalculateFrequencyForWord_EmptyText_ThrowsArgumentNullException()
+    {
+        // Arrange
+        var testWord = "the";
+
+        // Act
+        var result = analyzer.CalculateFrequencyForWord(EmptyTestString, testWord);
+
+        // Assert
+
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void CalculateFrequencyForWord_EmptyWord_ThrowsArgumentNullException()
+    {
+        // Arrange
+        var testWord = string.Empty;
+
+        // Act
+        var result = analyzer.CalculateFrequencyForWord(EmptyTestString, testWord);
+
+        // Assert
+
+    }
+
+    [TestMethod]
     [ExpectedException(typeof(ArgumentException))]
     public void CalculateFrequencyForWord_InvalidText_ThrowsArgumentException()
     {
@@ -96,7 +138,7 @@ public class WordFrequencyAnalyzerTests
         var testWord = "the";
 
         // Act
-        var result = analyzer.CalculateFrequencyForWord(EmptyTestString, testWord);
+        var result = analyzer.CalculateFrequencyForWord(InvalidTestString, testWord);
 
         // Assert
 
@@ -161,8 +203,8 @@ public class WordFrequencyAnalyzerTests
     }
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentException))]
-    public void CalculateMostFrequentWords_InvalidText_ThrowsArgumentException()
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void CalculateMostFrequentWords_EmptyText_ThrowsArgumentNullException()
     {
         // Arrange
 
@@ -175,12 +217,25 @@ public class WordFrequencyAnalyzerTests
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentException))]
+    public void CalculateMostFrequentWords_InvalidText_ThrowsArgumentException()
+    {
+        // Arrange
+
+        // Act
+        var result = analyzer.CalculateMostFrequentWords(InvalidTestString, 1);
+
+        // Assert
+
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentException))]
     public void CalculateMostFrequentWords_InvalidNumber_ThrowsArgumentException()
     {
         // Arrange
 
         // Act
-        var result = analyzer.CalculateMostFrequentWords(EmptyTestString, -1);
+        var result = analyzer.CalculateMostFrequentWords(EmptyTestString, 0);
 
         // Assert
 
