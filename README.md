@@ -7,6 +7,8 @@ Features include:
 * Finding the 'n' most frequent words for any given text input
     * This sorts by frequency, then alphabetically.
 
+[![.NET](https://github.com/carlalsford/WordFrequencyAnalyzer/actions/workflows/dotnet.yml/badge.svg)](https://github.com/carlalsford/WordFrequencyAnalyzer/actions/workflows/dotnet.yml)
+
 ## Usage
 
 ```c#
